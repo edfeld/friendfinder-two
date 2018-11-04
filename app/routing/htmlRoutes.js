@@ -1,0 +1,26 @@
+var htmlRoutes = function(app) {
+
+    app.get("/", function(req, res) {
+        res.sendFile(path.join(__dirname, "../public/home.html"));
+      });
+    
+      app.get("/survey", function(req, res) {
+        res.sendFile(path.join(__dirname, "../public/survey.html"));
+      });
+
+      console.log("hello");
+      console.log("dirName: ", __dirname);
+
+}
+
+
+
+
+
+module.exports = htmlRoutes;
+
+// module.exports = {
+//     hello: function() {
+//        return "Hello";
+//     }
+//  }
