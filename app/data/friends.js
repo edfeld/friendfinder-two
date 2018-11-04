@@ -17,8 +17,8 @@ let arrFriends = [
     }
 ];
 
-let getFriends = function () {
+var friends = function () {
     return arrFriends;
 }
 
-module.exports = arrFriends;
+module.exports = friends;
