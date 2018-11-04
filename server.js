@@ -1,8 +1,9 @@
 // Dependencies
 // =============================================================
 var express = require("express");
-var path = require("path");
+// var path = require("path");
 const htmlRoutes = require('./app/routing/htmlRoutes');
+const apiRoutes = require('./app/routing/apiRoutes');
 
 // Sets up the Express App
 // =============================================================
@@ -17,7 +18,8 @@ app.use(express.json());
 // Routes
 // =============================================================
 
-let val = htmlRoutes(app); // val is "Hello"  
+let val = htmlRoutes(app, __dirname); // Call to htmlRoutes
+let val1 = apiRoutes(app);
 
 // app.get("/", function(req, res) {
 //     res.sendFile(path.join(__dirname, "app/public/home.html"));
@@ -27,7 +29,7 @@ let val = htmlRoutes(app); // val is "Hello"
 //     res.sendFile(path.join(__dirname, "app/public/survey.html"));
 //   });
 
-app.get("/api/")
+// app.get("/api/")
 
 // Starts the server to begin listening
 // =============================================================
