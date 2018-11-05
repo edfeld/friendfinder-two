@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>FriendFinder Survey</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,11 +10,125 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   </head>
   <body>
-      <h1> Survey page</h1>
+      <h1> Survey Questions</h1>
+      <hr>
+      
+      
+      <form>
+        <h3>About you</h3>
+        <div class="form-row">
+          <div class="col">
+              <label for="FirstLastname">Your Name</label>
+            <input id='FirstLastname' type="text" class="form-control" placeholder="Name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+              <label for="linkImage">Link to Photo Image of You (Required)</label>
+            <input id='linkImage' type="text" class="form-control" placeholder="Photo Link">
+          </div>
+        </div>
+        <div id='question-list' class="form-row align-items-center">
+          <!-- <div  class="col-auto my-1">
+            <h3>Question 1</h3>
+            <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
+            <select class="custom-select mr-sm-2" id="Selection-Q1">
+              <option selected>Select an Option</option>
+              <option value="1">1 (Strongly Disagree)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Strongly Agree</option>
+            </select>
+          </div>-->
+        </div>
+      </form>
+      <button id="sub-btn" type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  
+    <script type="text/javascript">
+      // Question: What does this code do?
+      $("#sub-btn").on("click", function(event) {
+        console.log("first question answered: ", $('#Selection-Q1 option:selected').val());
+        event.preventDefault();
+        // let arrQuestions = [];
+        // arrQuestions.Push($('#Selection-Q1 option:selected').val())
+        // var newCharacter = {
+        //   name: $("#name").val().trim(),
+        //   role: $("#role").val().trim(),
+        //   age: $("#age").val().trim(),
+        //   forcePoints: $("#force-points").val().trim()
+        // };
+  
+        // Question: What does this code do??
+        // $.post("/api/friend", newCharacter)
+        //   .then(function(data) {
+        //     console.log("add.html", data);
+        //     alert("Adding character...");
+        //   });
+      });
+
+      // $(document).on("click", "#Selection-Q1", function() {
+      //   console.log("selection one clicked");
+      // });
+
+      $.get("/api/questions/", function(data) {
+        console.log(data);
+        let arrQuestion = data;
+        let QuestionListDiv = $("#question-list");  // get a reference to the question-list div ID
+        // QuestionListDiv.empty();
+        for (let i = 0; i < arrQuestion.length; i++) {
+          let questionKey = "Selection-Q" + (i+1);
+          console.log("questionKey: ", questionKey);
+          let questionSelect =  $("<select>").addClass("custom-select mr-sm-2").attr("id", questionKey);
+          questionSelect.append('<option selected>Select an Option</option>');
+          questionSelect.append('<option value="1">1 (Strongly Disagree)</option>');
+          questionSelect.append('<option value="2">2</option>');
+          questionSelect.append('<option value="3">3</option>');
+          questionSelect.append('<option value="4">4</option>');
+          questionSelect.append('<option value="5">5 (Strongly Agree)</option>');
+          // console.log("questionSelect ", questionSelect.html());
+          
+
+          let questDiv = $("<div>").addClass('col-auto my-1');
+            questDiv.append( 
+              $("<h3>").text("Question " + (i + 1)),
+              $("<label>").addClass('mr-sm-2').attr("for", questionKey).text(arrQuestion[i]),
+              questionSelect
+            );
+            QuestionListDiv.append(questDiv);
+            console.log("QuestionListDiv ", QuestionListDiv.html());
+            /* 
+            <div  class="col-auto my-1">
+            <h3>Question 1</h3>
+            <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
+            <select class="custom-select mr-sm-2" id="Selection-Q1">
+              <option selected>Select an Option</option>
+              <option value="1">1 (Strongly Disagree)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Strongly Agree)</option>
+            </select>
+          </div>
+            */
+        }
+        // if (data) {
+        //   $("#stats").show();
+        //   $("#name").text(data.name);
+        //   $("#role").text(data.role);
+        //   $("#age").text(data.age);
+        //   $("#force-points").text(data.forcePoints);
+        // }
+        // else {
+        //   $("#name").text("The force is not strong with this one. Your character was not found.");
+        //   $("#stats").hide();
+        // }
+      });
+    </script>
   </body>
 </html>
