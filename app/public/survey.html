@@ -55,7 +55,17 @@
       $("#sub-btn").on("click", function(event) {
         console.log("first question answered: ", $('#Selection-Q1 option:selected').val());
         event.preventDefault();
-        // let arrQuestions = [];
+        arrScores = [];
+        for (let i = 0; i < 10; i++) {
+          // const element = array[i];
+          const myKey = "Select-Q" + i.toString() + " option:selected";
+          arrScores.push($(myKey).val());
+        }
+        let objFriend = {
+          "name":$("#FirstLastname").val().trim(),
+            "photo":$("linkImage").val().trim(),
+            "scores":arrScores
+        };
         // arrQuestions.Push($('#Selection-Q1 option:selected').val())
         // var newCharacter = {
         //   name: $("#name").val().trim(),
@@ -71,6 +81,23 @@
         //     alert("Adding character...");
         //   });
       });
+
+    //   $("#add-btn").on("click", function(event) {
+    //   event.preventDefault();
+    //   var newReservation = {
+    //     name: $("#customer-name").val().trim(),
+    //     phoneNumber: $("#phone-number").val().trim(),
+    //     email: $("#customer-email").val().trim()
+    //   };
+    //   console.log("newChar: ", newReservation)
+
+    //   // Question: What does this code do??
+    //   $.post("/api/reserve", newReservation)
+    //     .then(function(data) {
+    //       console.log("add.html", data);
+    //       alert("Adding reservation...");
+    //     });
+    // });
 
       // $(document).on("click", "#Selection-Q1", function() {
       //   console.log("selection one clicked");

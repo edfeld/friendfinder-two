@@ -16,6 +16,17 @@ let apiRoutes = function (app) {
       console.log("get questions from questions.js: ", questions());
       return res.json(questions());
     });
+
+    app.get("/api/friend/:friendIndex", function(req, res) {
+      console.log("here in api/friend: ", req.params.friendIndex);
+      return res.json(Friends.getFriend(req.params.friendIndex));
+
+    })
+
+    app.get("/api/getMatch", function(req, res) {
+      
+
+    });
     
     // A POST routes `/api/friends`. This will be used to handle incoming survey results. 
     // This route will also be used to handle the compatibility logic. 
