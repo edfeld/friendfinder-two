@@ -4,7 +4,7 @@ var friends = function () {
     let arrFriends = [
         {
             "name":"Ahmed",
-            "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+            "photo":"https://i.kym-cdn.com/entries/icons/original/000/006/792/will-ferrell-in-anchorman-the-movie.jpg",
             "scores":[
                 5,
                 1,
@@ -20,34 +20,34 @@ var friends = function () {
         },
         {
             "name":"Billy Bob",
-            "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+            "photo":"https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/NeoTheMatrix.jpg/220px-NeoTheMatrix.jpg",
             "scores":[
                 3,
                 3,
+                3,
+                3,
+                3,
                 4,
                 4,
-                5,
-                1,
-                5,
-                5,
-                5,
-                5
+                4,
+                4,
+                4
                 ]
         },
         {
             "name":"Leslie",
-            "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+            "photo":"https://vignette.wikia.nocookie.net/neopedia/images/1/11/The-matrix-revolutions-2003-orig-27831.jpeg/revision/latest?cb=20120313120452&path-prefix=ru",
             "scores":[
-                3,
-                3,
-                3,
-                3,
-                3,
-                3,
-                3,
-                3,
-                3,
-                3
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
                 ]
         }
     ];

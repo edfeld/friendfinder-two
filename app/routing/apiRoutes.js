@@ -8,7 +8,7 @@ let apiRoutes = function (app) {
     // console.log("friends data: ", friends.arrFriends);
     //  A GET route with the url `/api/friends`. This will be used to display a JSON of all possible friends.
     app.get("/api/friends", function(req, res) {
-      console.log("get Friends from friends.js: ", friends());
+      console.log("get Friends from friends.js: ", Friends.getFriends());
       return res.json(Friends.getFriends());
     });
 
@@ -20,30 +20,47 @@ let apiRoutes = function (app) {
     app.get("/api/friend/:friendIndex", function(req, res) {
       console.log("here in api/friend: ", req.params.friendIndex);
       return res.json(Friends.getFriend(req.params.friendIndex));
-
-    })
-
-    app.get("/api/getMatch", function(req, res) {
-      
-
     });
-    
+
     // A POST routes `/api/friends`. This will be used to handle incoming survey results. 
     // This route will also be used to handle the compatibility logic. 
-    app.post("/api/friend", function(req, res) {
+    app.post("/api/friends", function(req, res) {
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
-        var newFriend = req.body;
-      
-        // Using a RegEx Pattern to remove spaces from newFriend
-        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        // newFriend.routeName = newFriend.name.replace(/\s+/g, "").toLowerCase();
-      
-        console.log(newFriend);
-      
-        friends.arrFriends.push(newFriend);
-      
-        res.json(newFriend);
+        var CurrUser = req.body;
+        console.log(CurrUser);
+        let FriendsArray = Friends.getFriends();
+        let arrDifferences = []
+
+        FriendsArray.forEach(friend => {
+          let diffVal = 0
+          for (let i = 0; i < friend.scores.length; i++) {
+            const currUserScore = parseInt(CurrUser.scores[i]);
+            const FriendScores = parseInt(friend.scores[i]);
+            diffVal += Math.abs(currUserScore - FriendScores )
+            console.log("DiffVal: ", diffVal)
+          }
+          arrDifferences.push(diffVal);
+
+        });
+        console.log("arrDifferences: ", arrDifferences);
+
+        // lowest difference index:
+        let lowVal =0;
+        let lowIndex = 0;
+        for (let i = 0; i < arrDifferences.length; i++) {
+          console.log("lowVal: ", lowVal);
+          if (i === 0) {
+            lowVal = arrDifferences[i];
+            lowIndex = i;
+          } else if (arrDifferences[i] < lowVal ) {
+            lowVal = arrDifferences[i];
+            lowIndex = i;
+          }
+          
+        }
+        res.json(FriendsArray[lowIndex]);
+        // console.log("do we get here?");
       });
 
 }

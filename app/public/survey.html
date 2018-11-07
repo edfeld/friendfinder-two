@@ -8,72 +8,167 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style.css" >
   </head>
   <body>
-      <h1> Survey Questions</h1>
-      <hr>
-      
-      
-      <form>
-        <h3>About you</h3>
-        <div class="form-row">
-          <div class="col">
-              <label for="FirstLastname">Your Name</label>
-            <input id='FirstLastname' type="text" class="form-control" placeholder="Name">
+    <!-- Modal 1 -->
+    <div class="modal fade" id="NewFriend" tabindex="-1" role="dialog" aria-labelledby="NewFriendTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="NewFriendTitle">New Friend Name</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <div class="New-Friend text-center">
+                      <img id='NewFriendPic' src="https://vignette.wikia.nocookie.net/parody/images/c/c2/Pinky_the_Mouse.jpg/revision/latest?cb=20160728220858" class="figure-img img-fluid rounded" alt="Your new friends photograph image.">
+                    </div>
+            </div>
+            <div class="modal-footer">
+            </div>
           </div>
         </div>
-        <div class="form-row">
-          <div class="col">
-              <label for="linkImage">Link to Photo Image of You (Required)</label>
-            <input id='linkImage' type="text" class="form-control" placeholder="Photo Link">
+      </div>
+    <div class="container">
+        <div class="row">
+          <div class="col align-self-center mt-2">
+            <h1> Survey Questions</h1>
+            <hr>
+            <form>
+              <h3>About you</h3>
+              <div class="form-row">
+                <div class="col">
+                  <label for="FirstLastname">Your Name</label>
+                  <input id='FirstLastname' type="text" class="form-control" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label for="linkImage">Link to Photo Image of You (Required)</label>
+                  <input id='linkImage' type="text" class="form-control" placeholder="Photo Link">
+                </div>
+              </div>
+              <div id='question-list' class="form-row align-items-center">
+                <!-- <div  class="col-auto my-1">
+                  <h3>Question 1</h3>
+                  <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
+                  <select class="custom-select mr-sm-2" id="Selection-Q1">
+                    <option selected>Select an Option</option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree</option>
+                  </select>
+                </div>-->
+              </div>
+            </form>
+            <button id="sub-btn" type="button" class="btn btn-primary btn-lg btn-block mt-3">Submit</button>
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery.js"></script>
           </div>
         </div>
-        <div id='question-list' class="form-row align-items-center">
-          <!-- <div  class="col-auto my-1">
-            <h3>Question 1</h3>
-            <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
-            <select class="custom-select mr-sm-2" id="Selection-Q1">
-              <option selected>Select an Option</option>
-              <option value="1">1 (Strongly Disagree)</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5 (Strongly Agree</option>
-            </select>
-          </div>-->
-        </div>
-      </form>
-      <button id="sub-btn" type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
   
     <script type="text/javascript">
-      // Question: What does this code do?
-      $("#sub-btn").on("click", function(event) {
-        console.log("first question answered: ", $('#Selection-Q1 option:selected').val());
-        event.preventDefault();
-        arrScores = [];
-        for (let i = 0; i < 10; i++) {
-          // const element = array[i];
-          const myKey = "Select-Q" + i.toString() + " option:selected";
-          arrScores.push($(myKey).val());
+
+    let arrQuestion = [];
+    let objFriendCurr = {};
+    let isAllAnswered = false;
+
+    function captureCurrUser() {
+      console.log("start captureCurrUser")
+      isAllAnswered = true;
+      console.log("isAllAnswered: ", isAllAnswered);
+      arrScores = [];
+      objFriendCurr = {};
+      console.log("Name: ", $("#FirstLastname").val())
+      if ($("#FirstLastname").val() === "" ) {
+        isAllAnswered = false;
+        alert("The name is blank.  Please fill out the form completely.");
+        // captureCurrUser();  // recursive call
+      }
+      if ($("#linkImage").val() === "") {
+        isAllAnswered = false;
+        alert("The photo link is blank.  Please fill out the form completely.");
+        // captureCurrUser();  // recursive call
+      }
+      console.log("arrQuestion.length: ", arrQuestion.length)
+      for (let i = 1; i < arrQuestion.length + 1; i++) {
+        // const element = array[i];
+        const myKey = "#Selection-Q" + i.toString() + " option:selected";
+        // console.log("myKey: ", myKey);
+        if ($(myKey).val() === "Select an Option") {
+          console.log("myKey and isAllAnswered: ", myKey + " " + isAllAnswered);
+          isAllAnswered = false;
+          // captureCurrUser();  // recursive call
         }
-        let objFriend = {
+        arrScores.push($(myKey).val());
+      }
+      if (isAllAnswered === false) {
+        alert("Not all questions have been answered.  Complete all questions.");
+      }
+      console.log("arrscores: ", arrScores); 
+      if(isAllAnswered) {
+        objFriendCurr = {
           "name":$("#FirstLastname").val().trim(),
-            "photo":$("linkImage").val().trim(),
+            "photo":$("#linkImage").val().trim(),
             "scores":arrScores
         };
-        // arrQuestions.Push($('#Selection-Q1 option:selected').val())
-        // var newCharacter = {
-        //   name: $("#name").val().trim(),
-        //   role: $("#role").val().trim(),
-        //   age: $("#age").val().trim(),
-        //   forcePoints: $("#force-points").val().trim()
-        // };
-  
+
+        processCompare();
+        
+      }
+    }
+
+    function processCompare() {
+      console.log("processCompare");
+      // get all friends
+      // $.get("/api/getMatch/" + JSON.stringify(objFriendCurr), function(data) {
+      //   // console.log(data);
+      //   if (data) {
+      //     console.log("friends data: ", data);
+      //     let arrFriend = data;
+      //   //   $("#stats").show();
+      //   //   $("#name").text(data.name);
+      //   //   $("#role").text(data.role);
+      //   //   $("#age").text(data.age);
+      //   //   $("#force-points").text(data.forcePoints);
+
+      //   $('#NewFriend').modal({ keyboard: true});
+      //   }
+      //   else {
+      //     $("#name").text("The force is not strong with this one. Your character was not found.");
+      //     $("#stats").hide();
+      //   }
+      // });
+
+      $.post("/api/friends", objFriendCurr)
+        .then(function(data) {
+          console.log("survey.html return", data);
+          // alert("Looking for a Friend...");
+          console.log("data.name: ", data.name);
+          console.log("photo: ", data.photo);
+
+          $("#NewFriendTitle").text(data.name);
+          $("#NewFriendPic").attr("src", data.photo)
+          $('#NewFriend').modal({ keyboard: true});
+        });
+    }
+
+      // Capture the surevey input
+      $("#sub-btn").on("click", function(event) {
+        
+        // console.log("first question answered: ", $('#Selection-Q1 option:selected').val());
+        event.preventDefault();
+        captureCurrUser()
+
         // Question: What does this code do??
         // $.post("/api/friend", newCharacter)
         //   .then(function(data) {
@@ -104,8 +199,8 @@
       // });
 
       $.get("/api/questions/", function(data) {
-        console.log(data);
-        let arrQuestion = data;
+        // console.log(data);
+        arrQuestion = data;
         let QuestionListDiv = $("#question-list");  // get a reference to the question-list div ID
         // QuestionListDiv.empty();
         for (let i = 0; i < arrQuestion.length; i++) {
@@ -121,14 +216,14 @@
           // console.log("questionSelect ", questionSelect.html());
           
 
-          let questDiv = $("<div>").addClass('col-auto my-1');
+          let questDiv = $("<div>").addClass('col-auto my-1 friend-score');
             questDiv.append( 
               $("<h3>").text("Question " + (i + 1)),
               $("<label>").addClass('mr-sm-2').attr("for", questionKey).text(arrQuestion[i]),
               questionSelect
             );
             QuestionListDiv.append(questDiv);
-            console.log("QuestionListDiv ", QuestionListDiv.html());
+            // console.log("QuestionListDiv ", QuestionListDiv.html());
             /* 
             <div  class="col-auto my-1">
             <h3>Question 1</h3>
