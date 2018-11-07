@@ -12,11 +12,14 @@ let apiRoutes = function (app) {
       return res.json(Friends.getFriends());
     });
 
+    // A GET route that returns all of the survey questions. 
     app.get("/api/questions", function(req, res) {
       console.log("get questions from questions.js: ", questions());
       return res.json(questions());
     });
 
+    // A GET Route that returns an individual friend when an index value is passed. 
+    // This is never called on the client side. 
     app.get("/api/friend/:friendIndex", function(req, res) {
       console.log("here in api/friend: ", req.params.friendIndex);
       return res.json(Friends.getFriend(req.params.friendIndex));

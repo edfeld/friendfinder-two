@@ -51,18 +51,7 @@
                 </div>
               </div>
               <div id='question-list' class="form-row align-items-center">
-                <!-- <div  class="col-auto my-1">
-                  <h3>Question 1</h3>
-                  <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
-                  <select class="custom-select mr-sm-2" id="Selection-Q1">
-                    <option selected>Select an Option</option>
-                    <option value="1">1 (Strongly Disagree)</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5 (Strongly Agree</option>
-                  </select>
-                </div>-->
+                
               </div>
             </form>
             <button id="sub-btn" type="button" class="btn btn-primary btn-lg btn-block mt-3">Submit</button>
@@ -82,13 +71,15 @@
     let objFriendCurr = {};
     let isAllAnswered = false;
 
+      // Get the values of the current user.
+      // validate tyhat all the questions have been answered.
     function captureCurrUser() {
-      console.log("start captureCurrUser")
+      // console.log("start captureCurrUser")
       isAllAnswered = true;
-      console.log("isAllAnswered: ", isAllAnswered);
+      // console.log("isAllAnswered: ", isAllAnswered);
       arrScores = [];
       objFriendCurr = {};
-      console.log("Name: ", $("#FirstLastname").val())
+      // console.log("Name: ", $("#FirstLastname").val())
       if ($("#FirstLastname").val() === "" ) {
         isAllAnswered = false;
         alert("The name is blank.  Please fill out the form completely.");
@@ -99,7 +90,7 @@
         alert("The photo link is blank.  Please fill out the form completely.");
         // captureCurrUser();  // recursive call
       }
-      console.log("arrQuestion.length: ", arrQuestion.length)
+      // console.log("arrQuestion.length: ", arrQuestion.length)
       for (let i = 1; i < arrQuestion.length + 1; i++) {
         // const element = array[i];
         const myKey = "#Selection-Q" + i.toString() + " option:selected";
@@ -114,7 +105,7 @@
       if (isAllAnswered === false) {
         alert("Not all questions have been answered.  Complete all questions.");
       }
-      console.log("arrscores: ", arrScores); 
+      // console.log("arrscores: ", arrScores); 
       if(isAllAnswered) {
         objFriendCurr = {
           "name":$("#FirstLastname").val().trim(),
@@ -127,76 +118,34 @@
       }
     }
 
+    // This function posts the Current User's data to the server.
+    // In the function return,  it ouputs the new friend to the modal dialog. 
     function processCompare() {
       console.log("processCompare");
-      // get all friends
-      // $.get("/api/getMatch/" + JSON.stringify(objFriendCurr), function(data) {
-      //   // console.log(data);
-      //   if (data) {
-      //     console.log("friends data: ", data);
-      //     let arrFriend = data;
-      //   //   $("#stats").show();
-      //   //   $("#name").text(data.name);
-      //   //   $("#role").text(data.role);
-      //   //   $("#age").text(data.age);
-      //   //   $("#force-points").text(data.forcePoints);
 
-      //   $('#NewFriend').modal({ keyboard: true});
-      //   }
-      //   else {
-      //     $("#name").text("The force is not strong with this one. Your character was not found.");
-      //     $("#stats").hide();
-      //   }
-      // });
-
+        // Post to get back the best friend match. Pass in the Current User object
+        // Post will return the best friend object. 
       $.post("/api/friends", objFriendCurr)
         .then(function(data) {
           console.log("survey.html return", data);
           // alert("Looking for a Friend...");
-          console.log("data.name: ", data.name);
-          console.log("photo: ", data.photo);
+          // console.log("data.name: ", data.name);
+          // console.log("photo: ", data.photo);
 
-          $("#NewFriendTitle").text(data.name);
+          $("#NewFriendTitle").text(data.name + " is your best match.");
           $("#NewFriendPic").attr("src", data.photo)
           $('#NewFriend').modal({ keyboard: true});
         });
     }
 
-      // Capture the surevey input
+      // Capture the surevey input in the submit button
       $("#sub-btn").on("click", function(event) {
-        
         // console.log("first question answered: ", $('#Selection-Q1 option:selected').val());
         event.preventDefault();
         captureCurrUser()
 
-        // Question: What does this code do??
-        // $.post("/api/friend", newCharacter)
-        //   .then(function(data) {
-        //     console.log("add.html", data);
-        //     alert("Adding character...");
-        //   });
       });
 
-    //   $("#add-btn").on("click", function(event) {
-    //   event.preventDefault();
-    //   var newReservation = {
-    //     name: $("#customer-name").val().trim(),
-    //     phoneNumber: $("#phone-number").val().trim(),
-    //     email: $("#customer-email").val().trim()
-    //   };
-    //   console.log("newChar: ", newReservation)
-
-    //   // Question: What does this code do??
-    //   $.post("/api/reserve", newReservation)
-    //     .then(function(data) {
-    //       console.log("add.html", data);
-    //       alert("Adding reservation...");
-    //     });
-    // });
-
-      // $(document).on("click", "#Selection-Q1", function() {
-      //   console.log("selection one clicked");
-      // });
 
       $.get("/api/questions/", function(data) {
         // console.log(data);
@@ -215,7 +164,6 @@
           questionSelect.append('<option value="5">5 (Strongly Agree)</option>');
           // console.log("questionSelect ", questionSelect.html());
           
-
           let questDiv = $("<div>").addClass('col-auto my-1 friend-score');
             questDiv.append( 
               $("<h3>").text("Question " + (i + 1)),
@@ -224,32 +172,9 @@
             );
             QuestionListDiv.append(questDiv);
             // console.log("QuestionListDiv ", QuestionListDiv.html());
-            /* 
-            <div  class="col-auto my-1">
-            <h3>Question 1</h3>
-            <label class="mr-sm-2" for="Selection-Q1">Your mind is always buzzing with unexplored ideas and plans</label>
-            <select class="custom-select mr-sm-2" id="Selection-Q1">
-              <option selected>Select an Option</option>
-              <option value="1">1 (Strongly Disagree)</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5 (Strongly Agree)</option>
-            </select>
-          </div>
-            */
+            
         }
-        // if (data) {
-        //   $("#stats").show();
-        //   $("#name").text(data.name);
-        //   $("#role").text(data.role);
-        //   $("#age").text(data.age);
-        //   $("#force-points").text(data.forcePoints);
-        // }
-        // else {
-        //   $("#name").text("The force is not strong with this one. Your character was not found.");
-        //   $("#stats").hide();
-        // }
+        
       });
     </script>
   </body>

@@ -19,18 +19,9 @@ app.use(express.json());
 // Routes
 // =============================================================
 
-let val = htmlRoutes(app, __dirname); // Call to htmlRoutes
+let val = htmlRoutes.htmlRoutes(app, __dirname); // Call to htmlRoutes
 let val1 = apiRoutes(app);
 
-// app.get("/", function(req, res) {
-//     res.sendFile(path.join(__dirname, "app/public/home.html"));
-//   });
-
-//   app.get("/survey", function(req, res) {
-//     res.sendFile(path.join(__dirname, "app/public/survey.html"));
-//   });
-
-// app.get("/api/")
 
 // Starts the server to begin listening
 // =============================================================
