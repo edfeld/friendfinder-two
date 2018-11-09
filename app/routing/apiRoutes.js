@@ -52,7 +52,6 @@ let apiRoutes = function (app) {
         let lowVal =0;
         let lowIndex = 0;
         for (let i = 0; i < arrDifferences.length; i++) {
-          console.log("lowVal: ", lowVal);
           if (i === 0) {
             lowVal = arrDifferences[i];
             lowIndex = i;
@@ -60,8 +59,10 @@ let apiRoutes = function (app) {
             lowVal = arrDifferences[i];
             lowIndex = i;
           }
+          console.log("lowVal: ", lowVal);
           
         }
+        console.log("lowVal Final: ")
         res.json(FriendsArray[lowIndex]);
         // console.log("do we get here?");
       });
