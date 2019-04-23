@@ -1,8 +1,10 @@
 # FriendFinder
 
-Dating application built on Node and Express
+![FriendFinder_2](https://user-images.githubusercontent.com/18557337/56592155-f15aab00-659e-11e9-9a95-92eef2ff51d9.png)
 
-1. The survey has 10 questions. Each answer is on a scale of 1 to 5 based on how much the user agrees or disagrees with a question.
+## An application similar to a dating application, built on Node and Express
+
+1. The survey has 10 questions. Each answer is on a scale of 1 to 5 based on how much the user agrees or disagrees with the question.
 
 2. The `server.js` file requires the npm packages, `express` and `path`.
 
