@@ -20,7 +20,7 @@
    * A GET route with the url `/api/friend/:friendIndex`.  This will return the JSON display of one friend based on the index value passed that corresponds to the friends array index value.
    * A GET route, `/api/questions`.  This returns a JSON of all of the survey questions.
 
-5. The application's data is saved inside of `app/data/friends.js` as an array of objects. Each of these objects has follow the format below.
+5. The application's data is saved inside of `app/data/friends.js` as an array of objects. Each of these objects has the following format:
 
 ```json
 {
@@ -49,7 +49,7 @@
        * User 1: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`
        * User 2: `[3, 2, 6, 4, 5, 1, 2, 5, 4, 1]`
        * Total Difference: **2 + 1 + 2 =** **_5_**
-   * Remember to use the absolute value of the differences. Put another way: no negative solutions! Your app should calculate both `5-3` and `3-5` as `2`, and so on. 
+   * Remember to use the absolute value of the differences. Put another way: no negative solutions! The app calculates both `5-3` and `3-5` as `2`, and so on. 
    * The closest match will be the user with the least amount of difference.
 
 7. Once the current user's most compatible friend, the result is displayed as a modal pop-up.
